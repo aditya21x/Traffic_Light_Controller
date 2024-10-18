@@ -30,9 +30,9 @@ module Traffic_Light_Controller(
     output reg [2:0]light_M2
     );
     
-    parameter  S1=0, S2=1, S3 =2, S4=3, S5=4,S6=5;
+    parameter  S1=3'd0, S2=3'd1, S3 =3'd2, S4=3'd3, S5=3'd4,S6=3'd5;
     reg [3:0]count;
-    reg[2:0] ps;
+    reg[2:0] sps;
     parameter  sec7=7,sec5=5,sec2=2,sec3=3;
 
    
@@ -41,7 +41,7 @@ module Traffic_Light_Controller(
         begin
         if(rst==1)
         begin
-        ps<=S1;
+        sps<=S1;
         count<=0;
         end
         else
@@ -49,81 +49,81 @@ module Traffic_Light_Controller(
       
        
             
-            case(ps)
+            case(sps)
                 S1: if(count<sec7)
                         begin
-                        ps<=S1;
-                        count<=count+1;
+                        sps<=S1;
+                        count<=count+1'b1;
                         end
                     else
                         begin
-                        ps<=S2;
+                        sps<=S2;
                         count<=0;
                         end
                 S2: if(count<sec2)
                         begin
-                        ps<=S2;
-                        count<=count+1;
+                        sps<=S2;
+                        count<=count+1'b1;
                         end
 
                     else
                         begin
-                        ps<=S3;
+                        sps<=S3;
                         count<=0;
                         end
                 S3: if(count<sec5)
                         begin
-                        ps<=S3;
-                        count<=count+1;
+                        sps<=S3;
+                        count<=count+1'b1;
                         end
 
                     else
                         begin
-                        ps<=S4;
+                        sps<=S4;
                         count<=0;
                         end
                 S4:if(count<sec2)
                         begin
-                        ps<=S4;
-                        count<=count+1;
+                        sps<=S4;
+                        count<=count+1'b1;
                         end
 
                     else
                         begin
-                        ps<=S5;
+                        sps<=S5;
                         count<=0;
                         end
                 S5:if(count<sec3)
                         begin
-                        ps<=S5;
-                        count<=count+1;
+                        sps<=S5;
+                        count<=count+1'b1;
                         end
 
                     else
                         begin
-                        ps<=S6;
+                        sps<=S6;
                         count<=0;
                         end
 
                 S6:if(count<sec2)
                         begin
-                        ps<=S6;
-                        count<=count+1;
+                        sps<=S6;
+                        count<=count+1'b1;
                         end
 
                     else
                         begin
-                        ps<=S1;
+                        sps<=S1;
                         count<=0;
                         end
-                default: ps<=S1;
+                default: sps<=S1;
                 endcase
             end   
 
-            always@(ps)    
+            always@(sps)    
             begin
                 
-                case(ps)
+                case(sps)
                      
                     S1:
                     begin
